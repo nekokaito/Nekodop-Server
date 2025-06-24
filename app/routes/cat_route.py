@@ -7,7 +7,11 @@ from ..controllers.cat_controllers import (
 )
 
 def handel_cat_routes(app):
-    # create cat
+    # create cat (options and post)
+    @app.options("/create-cat")
+    def route(req):
+        req.send(204, "")
+
     @app.post("/create-cat")
     def create_cat_route(req):
         return create_cat(req)

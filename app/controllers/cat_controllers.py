@@ -8,7 +8,7 @@ db = DB()
 def create_cat(req):
     body = req.json()
     cat_id = str(uuid.uuid4())
-    cat = db.run(
+    db.run(
     """
     INSERT INTO cats (
         id,

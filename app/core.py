@@ -10,12 +10,15 @@ class App:
             'POST': [],
             'PUT': [],
             'DELETE': [],
+            'OPTIONS': []
         }
 
     def get(self, path): return self._add_route('GET', path)
     def post(self, path): return self._add_route('POST', path)
     def put(self, path): return self._add_route('PUT', path)
     def delete(self, path): return self._add_route('DELETE', path)
+    def options(self, path): return self._add_route('OPTIONS', path)
+
 
     def _add_route(self, method, path):
         param_names = re.findall(r':(\w+)', path)
@@ -42,7 +45,7 @@ class App:
                         self.query = query
                         self.params = dict(zip(param_names, match.groups()))
                         self.body = None
-                        if method in ('POST', 'PUT'):
+                        if method in ('POST', 'PUT', 'OPTIONS'):
                             length = int(self.headers.get('Content-Length', 0))
                             self.body = self.rfile.read(length).decode('utf-8')
                         return handler(self)
@@ -53,11 +56,12 @@ class App:
             def do_POST(self): self._handle('POST')
             def do_PUT(self): self._handle('PUT')
             def do_DELETE(self): self._handle('DELETE')
+            def do_OPTIONS(self): self._handle('OPTIONS')
 
             def send(self, status, body):
                 self.send_response(status)
                 self.send_header('Access-Control-Allow-Origin', '*')
-                self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+                self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE ,OPTIONS')
                 self.send_header('Access-Control-Allow-Headers', 'Content-Type')
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
