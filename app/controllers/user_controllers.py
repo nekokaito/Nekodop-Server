@@ -44,6 +44,15 @@ def login(req):
     else:
         req.send(401, {"message": "Invalid email or password"})
 
+# get user by id
+def get_user(req):
+    user = db.get("SELECT * FROM users WHERE id = ?", (req.params['id'],))
+    res ={
+        "message": "User retrieved successfully",
+        "user": dict(user)
+    }
+    req.send(200, res)
+
 # get users
 def get_users(req):
     users = db.all("SELECT * FROM users")
