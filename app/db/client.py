@@ -1,7 +1,12 @@
+import os
 import sqlite3
 
 class DB:
-    def __init__(self, path="data.db"):
+    def __init__(self, path=None):
+        if path is None:
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            path = os.path.join(base_dir, "data.db")
+
         self.conn = sqlite3.connect(path)
         self.conn.row_factory = sqlite3.Row
         self.cur = self.conn.cursor()
@@ -20,5 +25,3 @@ class DB:
 
     def close(self):
         self.conn.close()
-
-

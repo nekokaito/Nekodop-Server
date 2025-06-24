@@ -68,9 +68,9 @@ class App:
                 except json.JSONDecodeError:
                     return {}
 
-        print(f"Server running at http://{host}:{port}")
+        print(f"server running at http://{host}:{port}")
         try:
             HTTPServer((host, port), Handler).serve_forever()
         except KeyboardInterrupt:
-            print("\nServer stopped.")
+            print("\nserver stopped.")
 

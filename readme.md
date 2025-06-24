@@ -1,14 +1,7 @@
 # its a api library made from scratch
 ## **simple with clean code**
 
-- first
-
-```bash
-python run.py
-```
-
-- second
-
+- run
 ```bash
 python -u main.py
 ```
