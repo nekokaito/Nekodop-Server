@@ -56,6 +56,9 @@ class App:
 
             def send(self, status, body):
                 self.send_response(status)
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.send_header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+                self.send_header('Access-Control-Allow-Headers', 'Content-Type')
                 self.send_header('Content-Type', 'application/json')
                 self.end_headers()
                 if not isinstance(body, str):
