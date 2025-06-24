@@ -27,7 +27,7 @@ class App:
             return handler
         return wrapper
 
-    def run(self, host='localhost', port=8080):
+    def run(self, host='localhost', port=5000):
         app = self
 
         class Handler(BaseHTTPRequestHandler):
