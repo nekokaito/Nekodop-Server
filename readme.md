@@ -3,9 +3,8 @@
 
 - run
 ```bash
-python -u main.py
+./start.sh
 ```
 
-The -u flag ensures unbuffered output (helpful for real-time logs).
 
 hehe <3
