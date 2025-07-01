@@ -60,6 +60,17 @@ def get_cats(req):
     }
     req.send(200, res)
 
+# get cat by id
+def get_cat_by_id(req):
+    cat_id = req.params["id"]
+    print(cat_id)
+    cat = db.get("SELECT * FROM cats WHERE id = ?",(cat_id,))
+    print(cat)
+    res = {
+        "message": "Cat retrieved successfully",
+        "cat": dict(cat)
+    }
+    req.send(200,res)
 # get cat by owner id
 def get_cats_by_owner(req):
     owner_id = req.params["owner_id"]

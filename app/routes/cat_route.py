@@ -1,5 +1,6 @@
 from ..controllers.cat_controllers import (
     create_cat,
+    get_cat_by_id,
     get_cats,
     get_cats_by_owner,
     update_cat,
@@ -20,6 +21,11 @@ def handel_cat_routes(app):
     @app.get("/get-cats")
     def route(req):
         return get_cats(req)
+
+    # get cat by oid
+    @app.get("/get-cat/:id")
+    def route(req):
+        return get_cat_by_id(req)
 
     # get cats by owner_id
     @app.get("/get-cats/:owner_id")
