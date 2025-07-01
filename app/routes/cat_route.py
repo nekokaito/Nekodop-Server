@@ -9,7 +9,7 @@ from ..controllers.cat_controllers import (
 
 def handel_cat_routes(app):
     # create cat (options and post)
-    @app.options("/create-cat")
+    @app.options("")
     def route(req):
         req.send(204, "")
 
@@ -32,12 +32,20 @@ def handel_cat_routes(app):
     def route(req):
         return get_cats_by_owner(req)
 
-    # update cat by id
+    # update cat by id (options and put)
+    @app.options("/update-cat/:cat_id")
+    def route(req):
+        req.send(204, "")
+
     @app.put("/update-cat/:cat_id")
     def route(req):
         return update_cat(req)
 
-    # delete cat by id
+    # delete cat by id (delete and options)
+    @app.options("/update-cat/:cat_id")
+    def route(req):
+        req.send(204, "")
+
     @app.delete("/delete-cat/:cat_id")
     def route(req):
         return delete_cat(req)
