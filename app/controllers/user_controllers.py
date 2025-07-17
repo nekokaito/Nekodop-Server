@@ -103,6 +103,27 @@ def update_user(req):
         }
     }
     req.send(200, res)
+    
+    
+# delete user
+def delete_user(req):
+    user_id = req.params["user_id"]
+
+
+    current_user = db.get("SELECT * FROM users WHERE id = ?", (user_id,))
+    if not current_user:
+        return req.send(404, {"error": "User not found"})
+
+    db.run("DELETE FROM users WHERE id = ?", (user_id,))
+
+
+    res = {
+        "message": "User deleted successfully",
+        "deletedUser": {
+            "id": user_id
+        }
+    }
+    req.send(200, res)
 
     
 
