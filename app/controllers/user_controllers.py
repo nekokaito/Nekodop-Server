@@ -62,6 +62,49 @@ def get_users(req):
         "users": users_list
     }
     req.send(200, res)
+    
+# update user
+def update_user(req): 
+    user_id = req.params["user_id"]
+    body = req.json()
+
+
+    current_user = db.get("SELECT * FROM users WHERE id = ?", (user_id,))
+    if not current_user:
+        return req.send(404, {"error": "User not found"})
+
+    name = body.get("name", current_user["name"])
+    email = body.get("email", current_user["email"])
+    password = body.get("password", current_user["password"])
+    profile_picture = body.get("profilePicture", current_user["profile_picture"])
+
+    db.run("""
+        UPDATE users SET
+            name = ?,
+            email = ?,
+            password = ?,
+            profile_picture = ?
+        WHERE id = ?
+    """, (
+        name,
+        email,
+        password,
+        profile_picture,
+        user_id
+    ))
+
+    res ={
+        "message": "User updated successfully",
+        "updatedUser": {
+            "id": user_id,
+            "name": name,
+            "email": email,
+            "profilePicture": profile_picture
+        }
+    }
+    req.send(200, res)
+
+    
 
 # is_admin
 def is_admin(req):

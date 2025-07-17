@@ -1,4 +1,4 @@
-from ..controllers.user_controllers import (is_admin, register_user, login, get_users, get_user)
+from ..controllers.user_controllers import (is_admin, register_user, login, get_users, get_user, update_user)
 
 def handel_user_routes(app):
     # register user (options and post)
@@ -30,6 +30,15 @@ def handel_user_routes(app):
     def route(req):
         return get_users(req)
     
+    # update user (options and post)
+    @app.options("/update-user/:user_id")
+    def route(req):
+        req.send(204, "")
+
+    @app.put("/update-user/:user_id")
+    def route(req):
+        return update_user(req)
+
     # is admin
     @app.get("/is-admin/:id")
     def route(req):
