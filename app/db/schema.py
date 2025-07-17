@@ -11,7 +11,7 @@ def create_tables():
       cat_owner_id TEXT REFERENCES users(id),
       cat_name TEXT NOT NULL,
       cat_image TEXT,
-      cat_age REAL,
+      cat_age TEXT,
       cat_gender TEXT,
       cat_description TEXT,
       owner_name TEXT,

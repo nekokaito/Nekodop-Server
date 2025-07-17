@@ -52,6 +52,16 @@ def create_cat(req):
 
 # get cats
 def get_cats(req):
+    cats = db.all("SELECT * FROM cats WHERE adopted = 0 AND is_approved = 1")
+    cats_list = [dict(cat) for cat in cats]
+    res = {
+        "message": "Cats retrieved successfully",
+        "cats": cats_list
+    }
+    req.send(200, res)
+
+# get cats (admin)
+def get_cats_admin(req):
     cats = db.all("SELECT * FROM cats")
     cats_list = [dict(cat) for cat in cats]
     res = {

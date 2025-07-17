@@ -29,7 +29,7 @@ def handel_user_routes(app):
     @app.get("/get-users")
     def route(req):
         return get_users(req)
-    
+
     # update user (options and post)
     @app.options("/update-user/:user_id")
     def route(req):
@@ -40,11 +40,11 @@ def handel_user_routes(app):
         return update_user(req)
 
     # delete user by id (delete and options)
-    @app.options("/delete-user/:user_id")
+    @app.options("/delete-user/:req_id/:user_id")
     def route(req):
         req.send(204, "")
 
-    @app.delete("/delete-user/:user_id")
+    @app.delete("/delete-user/:req_id/:user_id")
     def route(req):
         return delete_user(req)
 

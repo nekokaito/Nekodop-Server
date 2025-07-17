@@ -62,9 +62,9 @@ def get_users(req):
         "users": users_list
     }
     req.send(200, res)
-    
+
 # update user
-def update_user(req): 
+def update_user(req):
     user_id = req.params["user_id"]
     body = req.json()
 
@@ -103,11 +103,17 @@ def update_user(req):
         }
     }
     req.send(200, res)
-    
-    
+
+
 # delete user
 def delete_user(req):
+    req_id = req.params["req_id"]
     user_id = req.params["user_id"]
+
+
+    admin = db.get("SELECT * FROM users WHERE id = ? AND user_role = 'admin'", (req_id,))
+    if not admin:
+        return req.send(404, {"error": "User is not admin"})
 
 
     current_user = db.get("SELECT * FROM users WHERE id = ?", (user_id,))
@@ -125,7 +131,7 @@ def delete_user(req):
     }
     req.send(200, res)
 
-    
+
 
 # is_admin
 def is_admin(req):

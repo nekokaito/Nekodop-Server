@@ -4,7 +4,8 @@ from ..controllers.cat_controllers import (
     get_cats,
     get_cats_by_owner,
     update_cat,
-    delete_cat
+    delete_cat,
+    get_cats_admin
 )
 
 def handel_cat_routes(app):
@@ -21,6 +22,12 @@ def handel_cat_routes(app):
     @app.get("/get-cats")
     def route(req):
         return get_cats(req)
+
+
+    # get all cats (ADMIN)
+    @app.get("/admin/get-cats")
+    def route(req):
+        return get_cats_admin(req)
 
     # get cat by oid
     @app.get("/get-cat/:id")
