@@ -62,3 +62,11 @@ def get_users(req):
         "users": users_list
     }
     req.send(200, res)
+
+# is_admin
+def is_admin(req):
+    user_id = req.params['id']
+    user = db.get("SELECT user_role FROM users WHERE id = ?", (user_id,))
+    is_admin = True if user and user['user_role'] == 'admin' else False
+    req.send(200, is_admin)
+
