@@ -102,6 +102,7 @@ def update_cat(req):
     owner_phone = body.get("ownerPhone", current_cat["owner_phone"])
     owner_email = body.get("ownerEmail", current_cat["owner_email"])
     adopted = body.get("adopted", current_cat["adopted"])
+    is_approved = body.get("isApproved", current_cat["is_approved"])
     additional_info = body.get("additionalInformation", current_cat["additional_information"])
 
     db.run("""
@@ -115,6 +116,7 @@ def update_cat(req):
             owner_phone = ?,
             owner_email = ?,
             adopted = ?,
+            is_approved = ?,
             additional_information = ?
         WHERE id = ?
     """, (
@@ -127,6 +129,7 @@ def update_cat(req):
         owner_phone,
         owner_email,
         int(adopted),
+        int(is_approved),
         additional_info,
         cat_id
     ))

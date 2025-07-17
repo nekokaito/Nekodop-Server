@@ -19,6 +19,7 @@ def create_tables():
       owner_phone TEXT,
       owner_email TEXT,
       adopted INTEGER DEFAULT 0,
+      is_approved INTEGER DEFAULT 0,
       additional_information TEXT,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
@@ -31,6 +32,7 @@ def create_tables():
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     profile_picture TEXT,
+    user_role TEXT DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
   """)
