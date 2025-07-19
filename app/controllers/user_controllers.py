@@ -10,13 +10,13 @@ def register_user(req):
     user_id = str(uuid.uuid4())
     db.run(
       "INSERT INTO users (id,name, email, password, profile_picture) VALUES (?,?, ?, ?, ?)",
-      (user_id , body.get('user_name'), body.get('email'), body.get('password'), body.get('profilePicture'))
+      (user_id , body.get('userName'), body.get('email'), body.get('password'), body.get('profilePicture'))
     )
     res ={
         "message": "User created",
         "user":{
             "id":user_id,
-            "name": body.get('user_name'),
+            "name": body.get('userName'),
             "email": body.get('email'),
             "profilePicture": body.get('profilePicture'),
         }
@@ -73,7 +73,7 @@ def update_user(req):
     if not current_user:
         return req.send(404, {"error": "User not found"})
 
-    name = body.get("name", current_user["name"])
+    name = body.get("userName", current_user["name"])
     email = body.get("email", current_user["email"])
     password = body.get("password", current_user["password"])
     profile_picture = body.get("profilePicture", current_user["profile_picture"])
@@ -138,5 +138,6 @@ def is_admin(req):
     user_id = req.params['id']
     user = db.get("SELECT user_role FROM users WHERE id = ?", (user_id,))
     is_admin = True if user and user['user_role'] == 'admin' else False
-    req.send(200, is_admin)
+    req.send(200, is_admin) 
+    
 
