@@ -75,20 +75,17 @@ def update_user(req):
 
     name = body.get("userName", current_user["name"])
     email = body.get("email", current_user["email"])
-    password = body.get("password", current_user["password"])
     profile_picture = body.get("profilePicture", current_user["profile_picture"])
 
     db.run("""
         UPDATE users SET
             name = ?,
             email = ?,
-            password = ?,
             profile_picture = ?
         WHERE id = ?
     """, (
         name,
         email,
-        password,
         profile_picture,
         user_id
     ))
@@ -103,6 +100,31 @@ def update_user(req):
         }
     }
     req.send(200, res)
+    
+# update password   
+def update_password(req):
+    user_id = req.params["user_id"]
+    body = req.json()
+
+    current_password = body.get("currentPassword")
+    new_password = body.get("newPassword")
+
+    if not current_password or not new_password:
+        return req.send(400, {"error": "Missing required fields."})
+
+    user = db.get("SELECT * FROM users WHERE id = ?", (user_id,))
+    if not user:
+        return req.send(404, {"error": "User not found"})
+
+    # Check if current password matches
+    if user["password"] != current_password:
+        return req.send(401, {"error": "Current password is incorrect"})
+
+    # Update to new password
+    db.run("UPDATE users SET password = ? WHERE id = ?", (new_password, user_id))
+
+    return req.send(200, {"message": "Password updated successfully"})
+
 
 
 # delete user
