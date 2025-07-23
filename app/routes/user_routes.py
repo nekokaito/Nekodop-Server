@@ -1,4 +1,4 @@
-from ..controllers.user_controllers import (delete_user, is_admin, register_user, login, get_users, get_user, update_user)
+from ..controllers.user_controllers import (delete_user, is_admin, register_user, login, get_users, get_user, update_password, update_user)
 
 def handel_user_routes(app):
     # register user (options and post)
@@ -30,7 +30,7 @@ def handel_user_routes(app):
     def route(req):
         return get_users(req)
 
-    # update user (options and post)
+    # update user (options and put)
     @app.options("/update-user/:user_id")
     def route(req):
         req.send(204, "")
@@ -38,6 +38,14 @@ def handel_user_routes(app):
     @app.put("/update-user/:user_id")
     def route(req):
         return update_user(req)
+    # update password (options and put)
+    @app.options("/update-password/:user_id")
+    def route(req):
+        req.send(204, "")
+    
+    @app.put("/update-password/:user_id")
+    def route(req):
+        return update_password(req)
 
     # delete user by id (delete and options)
     @app.options("/delete-user/:req_id/:user_id")
