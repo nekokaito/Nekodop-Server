@@ -19,6 +19,7 @@ class DB:
     def get(self, query, params=()):
         self.cur.execute(query, params)
         return self.cur.fetchone()
+    
      # get all rows
     def all(self, query, params=()):
         self.cur.execute(query, params)

@@ -81,6 +81,7 @@ def get_cat_by_id(req):
         "cat": dict(cat)
     }
     req.send(200,res)
+    
 # get cat by owner id
 def get_cats_by_owner(req):
     owner_id = req.params["owner_id"]

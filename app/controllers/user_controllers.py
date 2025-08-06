@@ -7,6 +7,20 @@ db = DB()
 # user register
 def register_user(req):
     body = req.json()
+    email = body.get('email')
+    
+    
+     # Check if email already exists
+    existing_user = db.fetchone("SELECT id FROM users WHERE email = ?", (email,))
+    if existing_user:
+        res = {
+            "message": "Email already registered.",
+            "error": True
+        }
+        req.send(409, res)  # 409 Conflict
+        return
+    
+    #user registration
     user_id = str(uuid.uuid4())
     db.run(
       "INSERT INTO users (id,name, email, password, profile_picture) VALUES (?,?, ?, ?, ?)",
@@ -45,8 +59,10 @@ def login(req):
         req.send(401, {"message": "Invalid email or password"})
 
 # get user by id
+
 def get_user(req):
-    user = db.get("SELECT * FROM users WHERE id = ?", (req.params['id'],))
+    user_id = req.params['id'];
+    user = db.get("SELECT * FROM users WHERE id = ?", (user_id,))
     res ={
         "message": "User retrieved successfully",
         "user": dict(user)

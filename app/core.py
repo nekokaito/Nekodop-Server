@@ -21,9 +21,9 @@ class App:
 
 
     def _add_route(self, method, path):
-        param_names = re.findall(r':(\w+)', path)
-        regex_path = re.sub(r':\w+', r'([^/]+)', path)
-        regex = f"^{regex_path}$"
+        param_names = re.findall(r':(\w+)', path) # -> 
+        regex_path = re.sub(r':\w+', r'([^/]+)', path) #
+        regex = f"^{regex_path}$" #
 
         def wrapper(handler):
             self.routes[method].append((re.compile(regex), param_names, handler))
