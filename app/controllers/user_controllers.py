@@ -11,11 +11,10 @@ def register_user(req):
     
     
      # Check if email already exists
-    existing_user = db.fetchone("SELECT id FROM users WHERE email = ?", (email,))
+    existing_user = db.get("SELECT id FROM users WHERE email = ?", (email,))
     if existing_user:
         res = {
-            "message": "Email already registered.",
-            "error": True
+            "error": "Email already registered."
         }
         req.send(409, res)  # 409 Conflict
         return
