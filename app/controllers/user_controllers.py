@@ -144,8 +144,8 @@ def update_password(req):
 
 # delete user
 def delete_user(req):
-    req_id = req.params["req_id"]
-    user_id = req.params["user_id"]
+    req_id = req.params["req_id"] #admin
+    user_id = req.params["user_id"] #userid
 
 
     admin = db.get("SELECT * FROM users WHERE id = ? AND user_role = 'admin'", (req_id,))
