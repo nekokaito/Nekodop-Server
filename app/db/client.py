@@ -3,6 +3,7 @@ import sqlite3
 
 class DB:
     def __init__(self, path=None):
+         # connect to SQLite database file 
         if path is None:
             base_dir = os.path.dirname(os.path.abspath(__file__))
             path = os.path.join(base_dir, "data.db")
